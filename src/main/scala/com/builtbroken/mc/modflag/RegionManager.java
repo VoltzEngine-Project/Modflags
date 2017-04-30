@@ -2,8 +2,8 @@ package com.builtbroken.mc.modflag;
 
 import com.builtbroken.mc.framework.access.AccessGroup;
 import com.builtbroken.mc.framework.access.AccessProfile;
-import com.builtbroken.mc.framework.access.Permission;
-import com.builtbroken.mc.framework.access.Permissions;
+import com.builtbroken.mc.framework.access.perm.Permission;
+import com.builtbroken.mc.framework.access.perm.Permissions;
 import net.minecraft.world.World;
 
 import java.util.HashMap;

@@ -3,7 +3,7 @@ package com.builtbroken.mc.modflag;
 import com.builtbroken.jlib.data.vector.IPos3D;
 import com.builtbroken.mc.api.ISave;
 import com.builtbroken.mc.framework.access.AccessProfile;
-import com.builtbroken.mc.framework.access.IProfileContainer;
+import com.builtbroken.mc.framework.access.api.IProfileContainer;
 import com.builtbroken.mc.imp.transform.region.Cube;
 import com.builtbroken.mc.imp.transform.vector.Location;
 import net.minecraft.entity.player.EntityPlayer;
