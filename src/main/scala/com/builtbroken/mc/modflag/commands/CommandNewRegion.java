@@ -1,7 +1,7 @@
 package com.builtbroken.mc.modflag.commands;
 
 import com.builtbroken.mc.core.commands.prefab.SubCommand;
-import com.builtbroken.mc.core.handler.SelectionHandler;
+import com.builtbroken.mc.modflag.handler.SelectionHandler;
 import com.builtbroken.mc.imp.transform.region.Cube;
 import com.builtbroken.mc.modflag.Region;
 import com.builtbroken.mc.modflag.RegionManager;
