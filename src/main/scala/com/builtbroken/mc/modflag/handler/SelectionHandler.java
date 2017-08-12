@@ -101,7 +101,7 @@ public class SelectionHandler
             }
         }
 
-        Engine.instance.packetHandler.sendToPlayer(new PacketSelectionData(selection, cubes, regions), player);
+        Engine.packetHandler.sendToPlayer(new PacketSelectionData(selection, cubes, regions), player);
     }
 
     // ===========================================

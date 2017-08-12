@@ -90,6 +90,6 @@ public class ModFlagLoader extends AbstractMod
     @Override
     public AbstractProxy getProxy()
     {
-        return null;
+        return proxy;
     }
 }
