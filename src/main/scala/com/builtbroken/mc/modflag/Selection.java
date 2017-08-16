@@ -177,8 +177,8 @@ public class Selection extends Cube
                         Pos pos = new Pos(x, y, z);
                         if (location.distance(pos) <= distance)
                         {
-                            Block b = pos.getBlock(location.world());
-                            if (b != null && !pos.isAirBlock(location.world()) && pos.getHardness(location.world()) >= 0)
+                            Block b = pos.getBlock(location.oldWorld());
+                            if (b != null && !pos.isAirBlock(location.oldWorld()) && pos.getHardness(location.oldWorld()) >= 0)
                             {
                                 list.add(pos);
                             }

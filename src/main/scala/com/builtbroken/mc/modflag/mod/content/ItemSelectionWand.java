@@ -51,7 +51,7 @@ public class ItemSelectionWand extends Item
 
     public static void handelSelection(EntityPlayer player, Location location)
     {
-        if (!location.world().isRemote)
+        if (!location.oldWorld().isRemote)
         {
             Selection select = SelectionHandler.getSelection(player);
 
