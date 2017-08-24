@@ -4,9 +4,9 @@ import com.builtbroken.mc.core.Engine;
 import com.builtbroken.mc.core.network.packet.PacketSelectionData;
 import com.builtbroken.mc.imp.transform.region.Cube;
 import com.builtbroken.mc.imp.transform.vector.Pos;
-import com.builtbroken.mc.modflag.Selection;
 import com.builtbroken.mc.modflag.Region;
 import com.builtbroken.mc.modflag.RegionManager;
+import com.builtbroken.mc.modflag.Selection;
 import com.google.common.collect.Maps;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent;
@@ -61,7 +61,9 @@ public class SelectionHandler
         if (!player.worldObj.isRemote)
         {
             if (player instanceof EntityPlayerMP)
+            {
                 updatePlayerRenderData((EntityPlayerMP) player);
+            }
         }
     }
 
@@ -79,10 +81,16 @@ public class SelectionHandler
 
     public static void updatePlayerRenderData(EntityPlayerMP player)
     {
+        updatePlayerRenderData(player, false);
+    }
+
+    public static void updatePlayerRenderData(EntityPlayerMP player, boolean firstSend)
+    {
         List<Cube> cubes = new ArrayList();
         List<Cube> regions = new ArrayList();
         Cube selection = getSelection(player);
 
+        //Get selections
         for (Cube cube : selections.values())
         {
             if (cube != selection && cube.distance(new Pos(player)) <= 160)
@@ -90,18 +98,24 @@ public class SelectionHandler
                 cubes.add(cube);
             }
         }
-        for(Region region : RegionManager.getControllerForWorld(player.worldObj).getRegionsNear(player, 160))
+
+        //Get regions
+        for (Region region : RegionManager.getControllerForWorld(player.worldObj).getRegionsNear(player, 160))
         {
-            for(Cube cube : region.segments)
+            for (Cube cube : region.segments)
             {
-                if(cube.isCloseToAnyCorner(new Pos(player), 160))
+                if (cube.isCloseToAnyCorner(new Pos(player), 160))
                 {
                     regions.add(cube);
                 }
             }
         }
 
-        Engine.packetHandler.sendToPlayer(new PacketSelectionData(selection, cubes, regions), player);
+        //send only If: not first send or there is data to send
+        if (!firstSend || (!cubes.isEmpty() || !regions.isEmpty()))
+        {
+            Engine.packetHandler.sendToPlayer(new PacketSelectionData(selection, cubes, regions), player);
+        }
     }
 
     // ===========================================
@@ -115,7 +129,9 @@ public class SelectionHandler
     {
         clearSelection(event.player);
         if (event.player instanceof EntityPlayerMP)
-            updatePlayerRenderData((EntityPlayerMP) event.player);
+        {
+            updatePlayerRenderData((EntityPlayerMP) event.player, true);
+        }
     }
 
     @SubscribeEvent
@@ -123,7 +139,9 @@ public class SelectionHandler
     {
         clearSelection(event.player);
         if (event.player instanceof EntityPlayerMP)
+        {
             updatePlayerRenderData((EntityPlayerMP) event.player);
+        }
     }
 
     @SubscribeEvent
@@ -135,7 +153,9 @@ public class SelectionHandler
             for (Object obj : event.world.playerEntities)
             {
                 if (obj instanceof EntityPlayerMP)
+                {
                     updatePlayerRenderData((EntityPlayerMP) obj);
+                }
             }
         }
     }
