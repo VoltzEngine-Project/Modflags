@@ -58,7 +58,8 @@ public class Region implements ISave, IProfileContainer
         }
         if (nbt.hasKey("profile"))
         {
-            setAccessProfile(new AccessProfile(nbt.getCompoundTag("profile")));
+            setAccessProfile(new AccessProfile());
+            getAccessProfile().load(nbt.getCompoundTag("profile"));
         }
     }
 
